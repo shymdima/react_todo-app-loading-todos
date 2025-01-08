@@ -50,46 +50,45 @@ export const TodoInfo: React.FC<Props> = ({
 
   return (
     <section className="todoapp__main" data-cy="TodoList">
-  <div
-    data-cy="Todo"
-    className={classNames('todo', { completed: todo.completed })}
-  >
-    <label
-      className="todo__status-label"
-      htmlFor={`todo-${todo.id}`} // Связываем с input через htmlFor
-    >
-      <input
-        data-cy="TodoStatus"
-        type="checkbox"
-        className="todo__status"
-        id={`todo-${todo.id}`} // Уникальный идентификатор для input
-        checked={todo.completed}
-        onChange={changeComplited}
-      />
-      <span className="visually-hidden">
-        {todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
-      </span>
-    </label>
+      <div
+        data-cy="Todo"
+        className={classNames('todo', { completed: todo.completed })}
+      >
+        <label
+          className="todo__status-label"
+          htmlFor={`todo-${todo.id}`} // Связываем с input через htmlFor
+        >
+          <input
+            data-cy="TodoStatus"
+            type="checkbox"
+            className="todo__status"
+            id={`todo-${todo.id}`} // Уникальный идентификатор для input
+            checked={todo.completed}
+            onChange={changeComplited}
+          />
+          <span className="visually-hidden">
+            {todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
+          </span>
+        </label>
 
-    <span data-cy="TodoTitle" className="todo__title">
-      {todo.title}
-    </span>
+        <span data-cy="TodoTitle" className="todo__title">
+          {todo.title}
+        </span>
 
-    <button
-      type="button"
-      className="todo__remove"
-      data-cy="TodoDelete"
-      onClick={deleteComplited}
-    >
-      ×
-    </button>
+        <button
+          type="button"
+          className="todo__remove"
+          data-cy="TodoDelete"
+          onClick={deleteComplited}
+        >
+          ×
+        </button>
 
-    <div data-cy="TodoLoader" className="modal overlay">
-      <div className="modal-background has-background-white-ter" />
-      <div className="loader" />
-    </div>
-  </div>
-</section>
-
+        <div data-cy="TodoLoader" className="modal overlay">
+          <div className="modal-background has-background-white-ter" />
+          <div className="loader" />
+        </div>
+      </div>
+    </section>
   );
 };

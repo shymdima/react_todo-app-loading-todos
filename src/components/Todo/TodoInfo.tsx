@@ -62,13 +62,13 @@ export const TodoInfo: React.FC<Props> = ({
             data-cy="TodoStatus"
             type="checkbox"
             className="todo__status"
-            id={`todo-${todo.id}`} // Уникальный идентификатор для input
+            id={`todo-${todo.id}`}
             checked={todo.completed}
             onChange={changeComplited}
+            aria-label={
+              todo.completed ? 'Mark as incomplete' : 'Mark as complete'
+            }
           />
-          <span className="visually-hidden">
-            {todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
-          </span>
         </label>
 
         <span data-cy="TodoTitle" className="todo__title">

@@ -10,7 +10,7 @@ export const Errors: React.FC<Props> = ({ error, setError }) => {
   useEffect(() => {
     const timer = setTimeout(() => setError(''), 3000);
 
-    return () => clearTimeout(timer); // Очистка таймера при размонтировании
+    return () => clearTimeout(timer);
   }, [error, setError]);
 
   return (

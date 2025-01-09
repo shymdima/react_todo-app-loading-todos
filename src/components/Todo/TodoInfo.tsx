@@ -2,35 +2,23 @@ import classNames from 'classnames';
 import React from 'react';
 import { Todo } from '../../types/Todo';
 import { client } from '../../utils/fetchClient';
+import { updateTodo } from '../../api/todos';
 
 type Props = {
   todo: Todo;
   setTodos: (updater: (todos: Todo[]) => Todo[]) => void;
-  setOriginalTodos: (updater: (todos: Todo[]) => Todo[]) => void;
   setError: (newError: string) => void;
 };
-export const TodoInfo: React.FC<Props> = ({
-  todo,
-  setTodos,
-  setOriginalTodos,
-  setError,
-}) => {
+export const TodoInfo: React.FC<Props> = ({ todo, setTodos, setError }) => {
   const changeComplited = () => {
-    client
-      .patch<Todo>(`/todos/${todo.id}`, { completed: !todo.completed })
+    updateTodo(todo.id, { completed: !todo.completed })
       .then((changedTodo: Todo) => {
         setTodos((previous: Todo[]) =>
           previous.map((t: Todo) =>
             t.id === changedTodo.id ? changedTodo : t,
           ),
         );
-        setOriginalTodos((previous: Todo[]) =>
-          previous.map((t: Todo) =>
-            t.id === changedTodo.id ? changedTodo : t,
-          ),
-        );
       })
-
       .catch(() => setError('cannot change todo'));
   };
 
@@ -39,9 +27,6 @@ export const TodoInfo: React.FC<Props> = ({
       .delete(`/todos/${todo.id}`)
       .then(() => {
         setTodos((previous: Todo[]) =>
-          previous.filter((t: Todo) => t.id !== todo.id),
-        );
-        setOriginalTodos((previous: Todo[]) =>
           previous.filter((t: Todo) => t.id !== todo.id),
         );
       })
@@ -54,10 +39,7 @@ export const TodoInfo: React.FC<Props> = ({
         data-cy="Todo"
         className={classNames('todo', { completed: todo.completed })}
       >
-        <label
-          className="todo__status-label"
-          htmlFor={`todo-${todo.id}`} // Связываем с input через htmlFor
-        >
+        <label className="todo__status-label" htmlFor={`todo-${todo.id}`}>
           <input
             data-cy="TodoStatus"
             type="checkbox"
